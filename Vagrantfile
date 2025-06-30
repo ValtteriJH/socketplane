@@ -41,7 +41,7 @@ ln -s /vagrant/scripts/socketplane.sh /usr/bin/socketplane
 cd /usr/bin
 wget --quiet https://dl.bintray.com/mitchellh/consul/0.4.1_linux_amd64.zip
 unzip *.zip
-rm *.zip
+rm *.zipvagrant
 SCRIPT
 
 $redhat = <<SCRIPT
@@ -66,7 +66,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   num_nodes.times do |n|
     config.vm.define "socketplane-#{n+1}" do |socketplane|
-      socketplane.vm.box = "socketplane/ubuntu-14.10"
+      # socketplane.vm.box = "socketplane/ubuntu-14.10"
+      socketplane.vm.box = "ubuntu/jammy64"
       # In case you run into "SSL certificate problem: unable to get local issuer certificate"
       # and you do not have the time to address the issue properly, uncomment the following line
       # socketplane.vm.box_download_insecure = true
@@ -85,7 +86,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Boxes for testing installer
   config.vm.define "ubuntu-lts", autostart: false do |ubuntu|
-    ubuntu.vm.box = "chef/ubuntu-14.04"
+    ubuntu.vm.box = "ubuntu/jammy64"
     ubuntu.vm.hostname = "ubuntu"
     ubuntu.vm.network :private_network, ip: "10.254.102.10"
     ubuntu.vm.provider :virtualbox do |vb|
@@ -94,7 +95,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ubuntu.vm.provision :shell, inline: $ubuntu
   end
   config.vm.define "ubuntu", autostart: false do |ubuntu|
-    ubuntu.vm.box = "socketplane/ubuntu-14.10"
+    ubuntu.vm.box = "ubuntu/jammy64"
     ubuntu.vm.hostname = "ubuntu"
     ubuntu.vm.network :private_network, ip: "10.254.102.10"
     ubuntu.vm.provider :virtualbox do |vb|
