@@ -87,7 +87,7 @@ get_status() {
     OS="NOT_LINUX"
     RELEASE="NOT_LINUX"
     CODENAME="NOT_LINUX"
-    ARCH=$(uname -m)
+    =$(uname -m)
 
     if [ "$ARCH" = "x86_64" ]; then
         ARCH="amd64";
@@ -302,7 +302,7 @@ start_socketplane() {
 
     if [ ! -f /etc/socketplane/socketplane.toml ]; then
         mkdir -p /etc/socketplane
-        cp $PWD/socketplane.toml /etc/socketplane/socketplane.toml
+        cp $PWD/../socketplane.toml /etc/socketplane/socketplane.toml
     fi
 
     cid=$(docker run --name socketplane -itd --privileged=true \
@@ -324,7 +324,7 @@ start_socketplane() {
     if [ "$ps" = "yes" ]; then
 	if [ ! -f /etc/socketplane/adapters.yml ]; then
 	    mkdir -p /etc/socketplane
-	    cp $PWD/adapters.yml /etc/socketplane
+	    cp $PWD/../adapters.yml /etc/socketplane
 	fi
 
 	pscid=$(docker run -d --name powerstrip -v /var/run/docker.sock:/var/run/docker.sock \
@@ -550,12 +550,22 @@ fi
 
 lsb_dist="$(echo "$lsb_dist" | tr '[:upper:]' '[:lower:]')"
 
+
+
 if [ -z lsb_dist ]; then
     log_fatal "Operating System could not be detected"
     exit 1
 fi
 
-if [ -z "$(echo "$lsb_dist" | grep -E 'ubuntu|debian|fedora')" ]; then
+echo $lsb_dist;
+
+
+# Add support for ubuntu based distros
+if [ -z "$(echo "$lsb_dist" | grep -E 'tuxedo|mint')" ]; then
+    lsb_dist="ubuntu";
+fi
+
+if [ -z "$(echo "$lsb_dist" | grep -E 'ubuntu|debian|fedora|tuxedo')" ]; then
     log_fatal "Operating System $lsb_dist is not yet supported. Please contact support@socketplane.io"
     exit 1
 fi

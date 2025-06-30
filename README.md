@@ -1,5 +1,43 @@
 #SocketPlane
 
+### Attempting to revive SocketPlane base project
+Done:
+Base components installable
+Can start containers
+Can download images
+
+Next:
+Same but copy and update the images to ubuntu 22.04
+Update the dockerfiles and compose so I can use the current versions for security and ease of use
+
+Later:
+Complete the demo
+Update vagrant files
+Check out how the network layer is built
+
+## Current steps to install:
+
+#Add Docker's official GPG key:                
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+#Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+VERSION_STRING=5:20.10.13~3-0~ubuntu-jammy
+sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING containerd.io docker-buildx-plugin docker-compose-plugin
+
+cd ./scripts/
+chmod +x install.sh
+sudo ./install.sh
+
 [![Circle CI](https://circleci.com/gh/socketplane/socketplane/tree/master.svg?style=svg)](https://circleci.com/gh/socketplane/socketplane/tree/master) [![Coverage Status](https://img.shields.io/coveralls/socketplane/socketplane.svg)](https://coveralls.io/r/socketplane/socketplane) 
 
 Developers don't want to care about VLANs, VXLANs, Tunnels or TEPs. People responsible for managing the infra expect it to be performant and reliable. SocketPlane provides a networking abstraction at the socket-layer in order to solve the problems of the network in a manageable fashion.
@@ -37,7 +75,21 @@ Finally, we've implemented a distributed IP address management solution that ena
 
 ## Installation
 
+### Base socketplane stuff
+
+cd ./scripts/
+chmod +x install.sh
+sudo ./install.sh
+
 ### Vagrant
+
+Update vagrant through the proper channels
+
+wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install vagrant
+
+
 
 A Default Vagrant file has been provided to setup a a demo system. By default three Ubuntu 14.04 VM hosts will be installed each with an installed version of Socketplane.
 
@@ -122,7 +174,7 @@ You can also see the status of containers on a specific host VM by typing:
 
     sudo socketplane info
 
-If you want to create multiple networks you can do the following:
+If you want to create multiple networks you can do the following:read
 
     sudo socketplane network create web 10.2.0.0/16
 
