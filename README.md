@@ -1,5 +1,3 @@
-#SocketPlane
-
 ### Attempting to revive SocketPlane base project
 Done:
 Base components installable
@@ -17,13 +15,14 @@ Check out how the network layer is built
 
 ## Current steps to install:
 
-#Add Docker's official GPG key:                
+#Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 
+```bash
 #Add the repository to Apt sources:
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
@@ -37,6 +36,9 @@ sudo apt-get install docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING con
 cd ./scripts/
 chmod +x install.sh
 sudo ./install.sh
+```
+
+#SocketPlane
 
 [![Circle CI](https://circleci.com/gh/socketplane/socketplane/tree/master.svg?style=svg)](https://circleci.com/gh/socketplane/socketplane/tree/master) [![Coverage Status](https://img.shields.io/coveralls/socketplane/socketplane.svg)](https://coveralls.io/r/socketplane/socketplane) 
 
@@ -76,19 +78,22 @@ Finally, we've implemented a distributed IP address management solution that ena
 ## Installation
 
 ### Base socketplane stuff
-
+```bash
 cd ./scripts/
 chmod +x install.sh
 sudo ./install.sh
+```
 
 ### Vagrant
 
 Update vagrant through the proper channels
 
+```bash
 wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 sudo apt update && sudo apt install vagrant
 
+```
 
 
 A Default Vagrant file has been provided to setup a a demo system. By default three Ubuntu 14.04 VM hosts will be installed each with an installed version of Socketplane.
