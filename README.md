@@ -1,17 +1,17 @@
 ### Attempting to revive SocketPlane base project
 Done:
-Base components installable
-Can start containers
-Can download images
+- Base components installable
+- Can start containers
+- Can download images
 
 Next:
-Same but copy and update the images to ubuntu 22.04
-Update the dockerfiles and compose so I can use the current versions for security and ease of use
+- Same but copy and update the images to ubuntu 22.04
+- Update the dockerfiles and compose so I can use the current versions for security and ease of use
 
 Later:
-Complete the demo
-Update vagrant files
-Check out how the network layer is built
+- Complete the demo
+- Update vagrant files
+- Check out how the network layer is built
 
 ## Current steps to install:
 
