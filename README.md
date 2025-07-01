@@ -38,7 +38,7 @@ chmod +x install.sh
 sudo ./install.sh
 ```
 
-#SocketPlane
+# SocketPlane
 
 [![Circle CI](https://circleci.com/gh/socketplane/socketplane/tree/master.svg?style=svg)](https://circleci.com/gh/socketplane/socketplane/tree/master) [![Coverage Status](https://img.shields.io/coveralls/socketplane/socketplane.svg)](https://coveralls.io/r/socketplane/socketplane) 
 
